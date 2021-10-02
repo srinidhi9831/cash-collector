@@ -1,48 +1,53 @@
-function countNotes(){
-var one=0,five=0,ten=0,twenty=0,hundred=0,fiveHundred=0,twoThousand=0;
-var bill=parseInt(document.getElementById("bill-amount").value);
-var paid=parseInt(document.getElementById("amount-paid").value);
-var change = paid-bill;
-var Ch=change;
-while(change>0)
-{
-    if(change>=2000)
-    {
-        change=change-2000;
-        twoThousand++;
 
-    }
-    if(change>=500 && change<2000)
-    {
-        change=change-500;
-        fiveHundred++;
-    }
-    if(change>=100 && change<500)
-    {
-        change=change-100;
-        hundred++;
-    }
-    if(change>=20 && change<100)
-    {
-        change=change-20;
-        twenty++;
-    }
-    if(change>=10 && change<20)
-    {
-        change=change-10;
-        ten++;
-    }
-    if(change>=5 && change<10)
-    {
-        change=change-5;
-        five++;
-    }
-    if(change>=1 && change<5)
-    {
-        change=change-1;
-        one++;
-    }
+var output=document.querySelector("#output-div");
+var button=document.querySelector("#button");
 
+var denominations=[2000,500,100,20,10,5,1];
+
+var numberOfNotes=0;
+
+button.addEventListener("click",handler);
+
+function handler(){  
+    var bill=Number(document.querySelector("#bill-amount").value);
+    var paid=Number(document.querySelector("#amount-paid").value);
+    //console.log("bill=",bill);
+    //console.log("paid=",paid);
+
+
+    generateChange(bill,paid);
 }
-document.getElementById("output-div").innerText=" change to be returned :" + Ch +"\n\nDenominations as follows :\n 2000 :" + twoThousand + "\n500:" +fiveHundred + "\n100:" + hundred+"\n20:"+twenty+"\n10:"+ten+"\n5:"+five+"\n1:"+one;
+
+
+function generateChange(bill,paid){
+   // console.log("bill inside=",bill);
+    //console.log("paid= inside",paid);
+    //console.log(typeof(bill));
+    if(bill>0){
+        if(paid>bill){
+            var change=paid-bill;
+            output.innerText=`change to be returned : ${change} \n \nDenominations as follows:\n`;
+
+           for(var i=0;i<denominations.length;i++){
+                   numberOfNotes=Math.floor(change/denominations[i]);
+                   change=change%denominations[i];
+                   output.innerText= output.innerText + `\n${denominations[i]}:\t${numberOfNotes}`;
+           }
+          
+
+        }
+        else{
+            if(isNaN(paid))
+            output.innerHTML="paid amount must be a number";
+            else
+            output.innerHTML="paid amount is less than bill!!";
+        }
+
+    }
+    else{
+        if(isNaN(bill))
+        output.innerHTML="Bill must be a number";
+         else   
+           output.innerHTML="Bill must be greater than zero";
+    }
 }
