@@ -1,21 +1,36 @@
 
 var output=document.querySelector("#output-div");
 var button=document.querySelector("#button");
+var block=document.querySelector("#next-block");
+var bill=document.querySelector("#bill-amount");
+var paid=document.querySelector("#amount-paid");
 
 var denominations=[2000,500,100,20,10,5,1];
 
 var numberOfNotes=0;
 
+bill.addEventListener("keyup",function keyupHandler(){
+    if(isNaN(bill.value)){
+        alert("please input numbers only!")
+        
+    }
+    else if(bill.value===""){
+        block.style.display="none";
+    }
+    else{
+        block.style.display="block";
+    }
+});
+
 button.addEventListener("click",handler);
 
 function handler(){  
-    var bill=Number(document.querySelector("#bill-amount").value);
-    var paid=Number(document.querySelector("#amount-paid").value);
-    //console.log("bill=",bill);
-    //console.log("paid=",paid);
+    
+    // console.log("bill=",bill.value);
+    // console.log("paid=",paid.value);
 
-
-    generateChange(bill,paid);
+    if(validate())
+    generateChange(bill.value,paid.value);
 }
 
 
@@ -36,18 +51,29 @@ function generateChange(bill,paid){
           
 
         }
+        else if(paid===bill){
+            output.innerHTML="NO change to be returned";  
+        }
         else{
-            if(isNaN(paid))
-            output.innerHTML="paid amount must be a number";
-            else
             output.innerHTML="paid amount is less than bill!!";
         }
 
     }
     else{
-        if(isNaN(bill))
-        output.innerHTML="Bill must be a number";
-         else   
+          
            output.innerHTML="Bill must be greater than zero";
     }
+}
+
+function validate(){
+    if(bill.value==="" || paid.value===""){
+       alert("please fill details");
+       return false;
+    }
+    else if(isNaN(paid.value)){
+      alert("enter numbers only");
+      return false;
+    }
+    else
+      return true;
 }

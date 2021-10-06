@@ -36,6 +36,9 @@
         letter-spacing: 2px;
         font-weight: bolder;
       }
+      #next-block{
+        display: none;
+      }
 
     </style>
   </head>
@@ -46,10 +49,12 @@
     <h1>cash counter application</h1>
     <hr />
     
-    enter bill amount:<input type="text" id="bill-amount" /> <br>enter amount
-    paid:<input type="text" id="amount-paid" />
+    enter bill amount:<input type="text" id="bill-amount" /> <br>
+    <div id="next-block">
+    enter amount paid:<input type="text" id="amount-paid" />
     <br><button id="button">submit</button>
-    <div id="output-div">hello</div>
+    </div>
+    <div id="output-div"></div>
   </div></body>
   <script src="cash.js"></script>
 </html>
