@@ -30,7 +30,7 @@ function handler(){
     // console.log("paid=",paid.value);
 
     if(validate())
-    generateChange(bill.value,paid.value);
+    generateChange(Number(bill.value),Number(paid.value));
 }
 
 
@@ -73,6 +73,10 @@ function validate(){
     else if(isNaN(paid.value)){
       alert("enter numbers only");
       return false;
+    }
+    else if(bill.value<=0){
+        alert("bill must be greater than zero");
+        return false;
     }
     else
       return true;
