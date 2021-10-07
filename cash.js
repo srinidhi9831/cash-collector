@@ -10,9 +10,9 @@ var denominations=[2000,500,100,20,10,5,1];
 var numberOfNotes=0;
 
 bill.addEventListener("keyup",function keyupHandler(){
-    if(isNaN(bill.value)){
-        alert("please input numbers only!")
-        
+    if(isNaN(bill.value) || bill.value<0){
+        alert("please input positive numbers only!")
+        block.style.display="none";
     }
     else if(bill.value===""){
         block.style.display="none";
@@ -74,8 +74,8 @@ function validate(){
       alert("enter numbers only");
       return false;
     }
-    else if(bill.value<=0){
-        alert("bill must be greater than zero");
+    else if(bill.value<=0 || paid.value<0){
+        alert("Amount must be greater than zero");
         return false;
     }
     else
